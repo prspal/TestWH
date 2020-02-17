@@ -3,7 +3,6 @@ package wallethub.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,13 +11,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-import com.paulhammant.ngwebdriver.NgWebDriver;
-
 public class Browser {
 
 	private static Browser browser = null;
 	private WebDriver driver;
-	private NgWebDriver ngDriver;
 	
 	private Browser(String browser) {
 		WebDriver driver = null;
@@ -44,8 +40,6 @@ public class Browser {
 		}
 		
 		this.driver = driver;
-		//User NgWebDriver for Angular page
-//		this.ngDriver = new NgWebDriver((JavascriptExecutor) driver);
 	}
 	
 	public static Browser init (String browserType) {
@@ -62,6 +56,10 @@ public class Browser {
 
 	public void getUrl() {
 		driver.getCurrentUrl();
+	}
+
+	public void Quit() {
+		driver.quit();
 	}
 	
 }
