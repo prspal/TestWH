@@ -45,9 +45,21 @@ public class ProfilePage extends BasePage {
 	@FindBy(xpath = "//article[.//span[text()=' Your Review']]//div[@itemprop='description']")
 	private WebElement txtMyReviewText;
 	
+	@FindBy(xpath = "//div[@class='pr-rec-texts-container']/a")
+	private WebElement lnkReviewCompanyProfile;
+	
+	@FindAll( @FindBy(xpath = "//div[@class='pr-rec-texts-container']//*[local-name()='path' and @fill='"+SELECTED_HEXCODE+"']"))
+	private List<WebElement>  txtMyProfileReviewStars;
+	
+	
 	public ProfilePage(WebDriver driver) {
 		super(driver);
 		driver.get(BasePage.PROFILE_URL);
+	}
+	
+	public ProfilePage(WebDriver driver, String url) {
+		super(driver);
+		driver.get(url);
 	}
 
 	public void SetReviewStar(int starIdx) {
@@ -134,6 +146,16 @@ public class ProfilePage extends BasePage {
 	
 	public int getMyReivewStar() {
 		int count = txtMyReviewStars.size();
+		
+		return count;
+	}
+	
+	public String getMyProfileReviewName() {
+		return  lnkReviewCompanyProfile.getText();
+	}
+	
+	public int getMyProfileReviewStar() {
+		int count = txtMyProfileReviewStars.size();
 		
 		return count;
 	}

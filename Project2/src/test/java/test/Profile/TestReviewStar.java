@@ -24,7 +24,7 @@ public class TestReviewStar {
 		String passwd = "A!s2d3f4";
 		login.doLogin(user, passwd);
 		login.waitLoginFinish();
-		profile = new ProfilePage(browser.GetDriver());
+		
 	}
 
 	@AfterClass
@@ -34,6 +34,8 @@ public class TestReviewStar {
 
 	@Test
 	public void testSetWriteReviewStar() {
+		profile = new ProfilePage(browser.GetDriver());
+		
 		int starIdx = 4;
 		profile.SetReviewStar(starIdx);
 		Assert.assertTrue(profile.IsReadStarHighlighted(starIdx));
@@ -41,6 +43,8 @@ public class TestReviewStar {
 	
 	@Test
 	public void testHoverStar() {
+		profile = new ProfilePage(browser.GetDriver());
+		
 		int starIdx = 3;
 		profile.hoverReadReviewStar(starIdx);
 		Assert.assertTrue(profile.IsReadStarHighlighted(starIdx));
@@ -50,9 +54,11 @@ public class TestReviewStar {
 
 	@Test
 	public void testReviewSubmit() {
+		profile = new ProfilePage(browser.GetDriver());
+		
 		int starIdx = 4;
 		InsuranceType insurance = InsuranceType.HEALTH;
-		String submittedReviewText = "Quick brown fox jumped over the lazy dog";
+		String submittedReviewText = "Quick brown fox jumped over the lazy dog\n";
 		submittedReviewText = submittedReviewText+submittedReviewText+submittedReviewText+submittedReviewText;
 
 		profile.SetReviewStar(starIdx); profile.SetReviewInsuranceType(insurance);
@@ -65,4 +71,14 @@ public class TestReviewStar {
 		Assert.assertEquals(starIdx, myReviewStarCnt);
 		
 	}
+	
+	@Test
+	public void testProfileView() {
+		profile = new ProfilePage(browser.GetDriver(),"https://wallethub.com/profile/prspal" );
+		
+		//At least, 1 star, would be present for the review
+		Assert.assertNotEquals(0, profile.getMyProfileReviewStar());
+		Assert.assertNotEquals("", profile.getMyProfileReviewName());
+	}
+	
 }
